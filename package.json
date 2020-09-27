@@ -7,10 +7,13 @@
     "dotenv": "^8.2.0",
     "faker": "^5.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^26.4.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./vendor.js"
+    "test": "jest --coverage --verbose --maxworkers=12",
+    "start": "node ./vendor.js",
+    "lint": "eslint ./*.js"
   },
   "repository": {
     "type": "git",

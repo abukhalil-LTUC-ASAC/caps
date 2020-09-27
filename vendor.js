@@ -10,9 +10,9 @@ require('./driver');
 const order_template = {
   storeName: process.env.VENDOR,
   orderId: 0,
-  customerName: "Yahya Abu Khalil",
-  address: "Not gonna give you up"
-}
+  customerName: 'Yahya Abu Khalil',
+  address: 'Not gonna give you up',
+};
 
 function generateFake(order) {
   order.orderId = faker.random.number(1000);
@@ -22,5 +22,3 @@ function generateFake(order) {
 }
 
 setInterval(() => events.emit('pickup', generateFake(order_template)), 5000);
-
-events.on('delivered', () => console.log("Thank You for using YA Delivery Services!"));
