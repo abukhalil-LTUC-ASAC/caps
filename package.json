@@ -1,0 +1,28 @@
+{
+  "name": "caps",
+  "version": "1.0.0",
+  "description": "CAPS app",
+  "main": "vendor.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "faker": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^26.4.2"
+  },
+  "scripts": {
+    "test": "jest --coverage --verbose --maxworkers=12",
+    "start": "node ./vendor.js",
+    "lint": "eslint ./*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abukhalil-LTUC-ASAC/caps.git"
+  },
+  "author": "Yahya Abu Khalil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abukhalil-LTUC-ASAC/caps/issues"
+  },
+  "homepage": "https://github.com/abukhalil-LTUC-ASAC/caps#readme"
+}
