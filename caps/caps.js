@@ -18,16 +18,10 @@ server.on('connection', (socket) => {
   console.log('user is online!!!', socket);
 
   socket.on('data', buffer => {
-    console.log('buffer ====================>', buffer);
     let msg = JSON.parse(buffer.toString());
-    console.log('msg ====================>', msg);
     if (msg.event && msg.payload) {
+      console.log('Event ====================>', msg);
       broadcastMsg(msg);
-
-      setTimeout(() => {
-        // log('in-transit', payload, payload.orderId);
-        socket.write(JSON.stringify({event: 'delivered', payload: msg.payload}));
-      }, 1000);
     }
   });
 
