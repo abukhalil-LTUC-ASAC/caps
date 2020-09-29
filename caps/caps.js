@@ -1,49 +1,34 @@
 'use strict';
 
-const net = require('net');
+const io = require('socket.io')(4001);
+const caps = io.of('/caps'); // of is only for caps namespace (url part)
 
-const server = net.createServer();
-const port = process.env.port || 4000;
-
-let socketPool = {};
-
-server.listen(port, () => {
-  console.log(`server is running on ${port}`);
+io.on('connection', (socket)=> {
+  console.log('Welcome to My Global Connection!');
 });
 
-
-
-server.on('connection', (socket) => {
-  console.log('user is online!!!', socket);
+caps.on('connection', (socket)=> {
+  socket.on('join', payload=> {
+    console.log('connecting =>>', payload);
+    socket.join(payload);
+  });
 
   socket.on('data', buffer => {
     let msg = JSON.parse(buffer.toString());
     if (msg.event && msg.payload) {
-      console.log('Event ====================>', msg);
       broadcastMsg(msg);
     }
   });
-
-  const id = `Socket-${Math.random()}`;
-  socketPool[id] = socket;
-  
-  socket.on('close', () => {
-    delete socketPool[id];
-  });
-
-  function broadcastMsg(msg) {
-    let payload = JSON.stringify(msg);
-    for (let id in socketPool) {
-      socketPool[id].write(payload);
-    }
-  }
 });
-// function log(event, payload, id) {
-//   if (id) {
-//     console.log(`DRIVER: ${event} ${id}`);
-//   }
 
-//   let time = new Date();
-//   console.log('EVENT LOG ', {time, event, payload});
-// }
+/**
+ * Broadcasts the object input as a string from each client to everyone again
+ * @param {Object} msg incoming object from a client with payload and event
+ */
+function broadcastMsg(msg) {
+  let payload = JSON.stringify(msg);
+  console.log('emitting', msg);
+    
+  caps.emit('data', payload);
+}
 

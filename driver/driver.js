@@ -1,23 +1,21 @@
 'use strict';
 
-const net = require('net');
+const io = require('socket.io-client');
+const driver = io.connect('http://localhost:4001/caps');
 
-const host = process.env.HOST || 'localhost';
-const port = process.env.port || 4000;
-const client = new net.Socket();
-
-client.connect(port, host, () => {
-  console.log('connecting Driver...');
+console.log('connecting Driver...');
+driver.on('connect', () => {
+  console.log('Driver Connected!');
+  driver.emit('join', 'driver');
 });
 
-client.on('data', (data) => {
+driver.on('data', (data) => {
   let msg = JSON.parse(data);
   if (msg.event == 'pickup') {
     setTimeout(() => {
       console.log(`picking up ${msg.payload.orderId}`);
       sendMessageToServer({event: 'in-transit', payload: msg.payload});
 
-      
       setTimeout(() => {
         console.log(`delivered ${msg.payload.orderId}`);
         sendMessageToServer({event: 'delivered', payload: msg.payload});
@@ -27,12 +25,11 @@ client.on('data', (data) => {
 });
 
 sendMessageToServer({message: 'Hello from Driver!!'});
-
-client.on('close', function () {
-  console.log('connection is closed!!');
-});
-
+/**
+ * emits client data object as a string to the server
+ * @param {Object} text outgoing object from the client with payload and event
+ */
 function sendMessageToServer(text) {
   let event = JSON.stringify(text);
-  client.write(event);
+  driver.emit('data', event);
 }
