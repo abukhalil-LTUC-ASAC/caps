@@ -1,13 +1,12 @@
 'use strict';
 
 require('dotenv').config();
-// const events = require('./events');
 const faker = require('faker/locale/en');
-const util = require('util')
+// const util = require('util');
 const { setInterval } = require('timers');
 const net = require('net');
 
-      // console.log(util.inspect(jsonData, {showHidden: false, depth: null}))
+// console.log(util.inspect(jsonData, {showHidden: false, depth: null}))
 
 const client = new net.Socket();
 
@@ -15,7 +14,7 @@ const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 4000;
 
 client.connect(port, host, ()=> {
-  console.log("connecting Vendor ... ");
+  console.log('connecting Vendor ... ');
 
   setInterval(() => {
     sendMessageToServer({event: 'pickup', payload: generateFake(order_template)});
@@ -24,14 +23,14 @@ client.connect(port, host, ()=> {
 
 
 client.on('data', (data)=> {
-    let jsonData = JSON.parse(data);
-    if (jsonData.event == 'delivered') {
-      console.log(`thank you for delivering ${jsonData.payload.orderId}`);
-    }
+  let jsonData = JSON.parse(data);
+  if (jsonData.event == 'delivered') {
+    console.log(`thank you for delivering ${jsonData.payload.orderId}`);
+  }
 });
 
 client.on('close', function () {
-    console.log("connection is closed!!");
+  console.log('connection is closed!!');
 });
 
 sendMessageToServer({message: 'Hello from Vendor!!'});

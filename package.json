@@ -13,8 +13,7 @@
   },
   "scripts": {
     "test": "jest --coverage --verbose --maxworkers=12",
-    "start": "node ./vendor.js",
-    "lint": "eslint ./*.js"
+    "lint": "eslint **/*.js"
   },
   "repository": {
     "type": "git",
