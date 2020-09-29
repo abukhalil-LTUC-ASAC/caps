@@ -29,7 +29,7 @@ client.on('data', (data) => {
 sendMessageToServer({message: 'Hello from Driver!!'});
 
 client.on('close', function () {
-  console.log("connection is closed!!");
+  console.log('connection is closed!!');
 });
 
 function sendMessageToServer(text) {

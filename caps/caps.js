@@ -1,6 +1,5 @@
 'use strict';
 
-const { Socket } = require('dgram');
 const net = require('net');
 
 const server = net.createServer();
@@ -9,7 +8,7 @@ const port = process.env.port || 4000;
 let socketPool = {};
 
 server.listen(port, () => {
-  console.log(`server is running on ${port}`)
+  console.log(`server is running on ${port}`);
 });
 
 
@@ -38,7 +37,7 @@ server.on('connection', (socket) => {
       socketPool[id].write(payload);
     }
   }
-})
+});
 // function log(event, payload, id) {
 //   if (id) {
 //     console.log(`DRIVER: ${event} ${id}`);
