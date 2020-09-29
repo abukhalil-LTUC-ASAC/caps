@@ -10,10 +10,9 @@ Links and Resources
 [Github actions](https://github.com/abukhalil-LTUC-ASAC/caps/actions)
 
 ### Modules and Middlewares
-- [`vendor.js`](vendor.js) centralized file to kickstart the mock loop of orders.
+- [`vendor.js`](vendor.js) a socket that kickstart the mock loop of orders.
 - [`driver.js`](driver.js) mocks the response of the vendor emitter as a driver picking up, delivering and finishing the delivery.
-- [`caps.js`](caps.js) all function calls are kept in caps, which is a log for now.
-- [`events.js`](events.js) events is, at the moment, taken from node.js eventEmitter module.
+- [`caps.js`](caps.js) all sockets connect to caps as the server that would broadcast the messages again.
 
 ### Setup
 Clone the repo, and run the following commands to install the required dependencies and dev dependencies. 
